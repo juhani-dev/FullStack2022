@@ -5,6 +5,7 @@ const Course = ({course}) => {
     <>
     <Header course={course}/>
     <Content parts={course.parts}/>
+    <Total parts={course.parts}/>
     </>
   )
 }
@@ -21,7 +22,7 @@ const Part = ({part}) =>
     </p>
    
 const Content = ({parts}) => {
-  
+
 
   return(
   <>
@@ -29,6 +30,21 @@ const Content = ({parts}) => {
     <  Part key={line.id} part={line} />)}
   </>
   )
+}
+
+const Total = ({parts}) => {
+  
+  const total = 0
+  
+  const sum = parts.reduce(function (accumulator, curValue) {
+    console.log(curValue.exercises)
+    return accumulator + curValue.exercises
+  }, total)
+  
+  console.log(sum)
+return (
+  <>total of {sum} exercises</>
+)
 }
 
 const App = () => {
