@@ -12,12 +12,26 @@ const App = () => {
   }
   const addPerson = (event) => {
     event.preventDefault()
-    const person ={
-      name: newName
+    let check = false
+    persons.forEach((element) =>{      
 
+      if (JSON.stringify(element.name)===JSON.stringify(newName))   {
+  
+       check =true
     }
-    setPersons(persons.concat(person))
-    setNewName('')
+      
+  })
+  if (!check){
+  const person ={
+    name: newName
+
+  }
+setPersons(persons.concat(person))
+
+
+}
+else {alert(JSON.stringify(newName+" is already added to the phonebook"))}
+setNewName('')
   }
   return (
     <div>
@@ -46,5 +60,6 @@ const App = () => {
     
   )
 }
+
 
 export default App
