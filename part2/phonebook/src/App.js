@@ -2,10 +2,22 @@ import { useState } from 'react'
 
 const App = () => {
   const [persons, setPersons] = useState([
-    { name: 'Arto Hellas',number:'ddd' }
+    { name: 'Arto Hellas',number:'ddd',id:1 }
   ]) 
   const [newName, setNewName] = useState('')
   const [newNumber, setNewNumber] = useState('')
+  const [search,setNewSearch]= useState('')
+
+ 
+  const personToShow =  persons.filter(person => person.name.includes(search))
+
+
+  const handleSearchChange = (event) => {
+    console.log(event.target.value)
+    setNewSearch(event.target.value)
+    
+    
+  }
 
   const handleNameChange = (event) => {
     console.log(event.target.value)
@@ -31,7 +43,8 @@ const App = () => {
   if (!check){
   const person ={
     name: newName,
-    number: newNumber
+    number: newNumber,
+    id:persons.length+1
   }
 setPersons(persons.concat(person))
   
@@ -43,7 +56,11 @@ setNewName('')
   return (
     <div>
       <h2>Phonebook</h2>
-      
+      <div>
+        
+        filter list: <input value={search} onChange={handleSearchChange}/>
+      </div>
+      <h2>add new</h2>
       <form  onSubmit={addPerson}>
         <div>
         number :<input value={newNumber} onChange={handleNumberChange}
@@ -59,8 +76,8 @@ setNewName('')
       <h2>Numbers</h2>
      
         <ul>
-        {persons.map(note => <li key ={note.name}>
-          {note.name} {note.number}</li>)}
+        {personToShow.map(note => <li key ={note.name}>
+          {note.name} {note.number} </li>)}
       </ul>
       
       
