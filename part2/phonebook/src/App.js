@@ -1,6 +1,7 @@
 
 import { useState, useEffect } from 'react'
 import axios from 'axios'
+import personService from './services/persons'
 const AddPersonForm =({newNumber,handleNumberChange,handleNameChange,newName,setNewName,setPersons,persons})=>{
   
   return(
@@ -28,12 +29,18 @@ const AddPerson = (event,persons,newName, newNumber,setPersons,setNewName) => {
   }
   })
   if (!check){
-    const person ={
+    const personObject ={
       name: newName,
       number: newNumber,
-      id:persons.length+1
+      
       }
-        setPersons(persons.concat(person))
+      personService
+      .create(personObject)
+      .then(response => {
+        setPersons(persons.concat(response.data))
+       setNewName('')
+        console.log(response)
+      })
 
     }
     else {alert(JSON.stringify(newName+" is already added to the phonebook"))}
@@ -70,8 +77,8 @@ const App = () => {
 
   useEffect(() => {
     console.log('effect')
-    axios
-      .get('http://localhost:3001/persons')
+    personService
+      .getAll()
       .then(response => {
         console.log('promise fulfilled')
         setPersons(response.data)
