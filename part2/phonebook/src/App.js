@@ -1,6 +1,7 @@
 
 import { useState, useEffect } from 'react'
-import axios from 'axios'
+
+
 import personService from './services/persons'
 const AddPersonForm =({newNumber,handleNumberChange,handleNameChange,newName,setNewName,setPersons,persons})=>{
   
@@ -19,16 +20,22 @@ const AddPersonForm =({newNumber,handleNumberChange,handleNameChange,newName,set
       </form>
   )
 }
+
 const AddPerson = (event,persons,newName, newNumber,setPersons,setNewName) => {
   
+  let id = 0
   event.preventDefault()
   let check = false
+  
   persons.forEach((element) =>{      
-    if (JSON.stringify(element.name)===JSON.stringify(newName))   {
+   console.log(element.name)
+    if (element.name===newName)   {
      check =true
+     id = element.id
   }
   })
   if (!check){
+    
     const personObject ={
       name: newName,
       number: newNumber,
@@ -36,31 +43,69 @@ const AddPerson = (event,persons,newName, newNumber,setPersons,setNewName) => {
       }
       personService
       .create(personObject)
-      .then(response => {
-        setPersons(persons.concat(response.data))
+      .then(responseNotes => {
+        setPersons(persons.concat(responseNotes))
        setNewName('')
-        console.log(response)
+        console.log(responseNotes,"this")
       })
-
+      
     }
-    else {alert(JSON.stringify(newName+" is already added to the phonebook"))}
-      setNewName('')
+    else {
+    HandleNumberUpdate(id,newName,newNumber,setPersons,persons)
+      
+  }   setNewName('')
 
 }
+const HandleNumberUpdate=(id,name,number,setPersons,persons)=>{
+  
+  if (window.confirm("update "+name+" number?")) {
+  personService
+  .update(id,name,number)
+  .then(responseData =>{
+    console.log(responseData)
+    setPersons(persons.map(line => line.id !==id ?line:responseData  ))
+  })
+  .catch(error => {
+    alert("This person is deleted\n"+error.name)
+    
+  })
+  }
+
+}
+const HandleDelete=(e,name,{persons,setPersons})=>{
+  
+  if (window.confirm("Delete "+name+"?")){
+    personService
+    .remove(e)
+    .then(() =>{
+      setPersons(persons.filter(person =>person.id != e))
+    })
+    .catch(error => {
+      alert("This person is already deleted\n"+error.name)
+      setPersons(persons.filter(person =>person.id != e))
+    })
+        
+  }
+  
+  }
 
 
-const PersonsShow =({personToShow})=>{
+
+const PersonsShow =({persons,search,setPersons})=>{
+  const personToShow =  persons.filter(person => person.name.includes(search))
+  
   return (
     <ul>
         {personToShow.map(note => <li key ={note.name}>
-          {note.name} {note.number} </li>)}
+          {note.name} {note.number}  {" "}
+          <button value={note.id} onClick={e=>HandleDelete(e.target.value,note.name,{setPersons,persons})}>delete</button>
+          </li>)}
       </ul>
   )
 }
 const FilterList =({search,onChange})=>{
   return(
       <div>
-
       filter numbers: 
       <input
       value={search}
@@ -70,7 +115,6 @@ const FilterList =({search,onChange})=>{
 }
 const App = () => {
   const [persons, setPersons] = useState([]) 
-  
   const [newName, setNewName] = useState('')
   const [newNumber, setNewNumber] = useState('')
   const [search,setNewSearch]= useState('')
@@ -79,14 +123,14 @@ const App = () => {
     console.log('effect')
     personService
       .getAll()
-      .then(response => {
+      .then(responseNotes=> {
         console.log('promise fulfilled')
-        setPersons(response.data)
+        setPersons(responseNotes)
       })
   }, [])
   console.log('render', persons.length, 'persons')
  
-  const personToShow =  persons.filter(person => person.name.includes(search))
+  
 
 
   const handleSearchChange = (event) => {
@@ -116,7 +160,7 @@ const App = () => {
      < AddPersonForm  newName={newName} newNumber={newNumber} handleNameChange={handleNameChange} handleNumberChange={handleNumberChange}persons={persons} setPersons={setPersons}setNewName={setNewName}/>
       
       <h2>Numbers</h2>
-     <PersonsShow personToShow={personToShow} />
+     <PersonsShow persons={persons} search={search} setPersons={setPersons} />
               
     </div>
     
