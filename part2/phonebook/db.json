@@ -1,54 +1,9 @@
 {
   "persons": [
     {
-      "name": "Dan Abramov",
-      "number": "12-43-234345",
-      "id": 3
-    },
-    {
-      "name": "aa",
-      "number": "21",
-      "id": 5
-    },
-    {
-      "name": "999",
-      "number": "21",
-      "id": 6
-    },
-    {
-      "name": "kkk",
-      "number": "123",
-      "id": 7
-    },
-    {
-      "name": "ii",
-      "number": "333",
-      "id": 8
-    },
-    {
-      "name": "ee",
-      "number": "333",
-      "id": 9
-    },
-    {
-      "name": "cf",
-      "number": "44",
-      "id": 11
-    },
-    {
-      "name": "ll",
-      "number": "1111",
-      "id": 12
-    },
-    {
-      "name": "gtgt",
-      "number": "545",
-      "id": 13
-    },
-    {
-      "name": "copper",
-      "number": "1234",
-      "id": 14
+      "name": "ff",
+      "number": "fvfv",
+      "id": 1
     }
   ]
 }

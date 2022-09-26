@@ -1,25 +1,22 @@
 import { CheckName,CheckNumber,FindId } from "../services/searchPersons"
 import personService from '../services/persons'
 
-export const AddPersonNew=(event,persons,newName,newNumber,setPersons,setNewName)=>{
+export const AddPersonNew=(event,persons,newName,newNumber,setPersons,setNewName,setMessage,setErrorMessage)=>{
     event.preventDefault()
   
     if ( CheckName(persons,newName) ){
       let id =FindId(persons,newName)
-      HandleNumberUpdate(id,newName,newNumber,setPersons,persons)
+      HandleNumberUpdate(id,newName,newNumber,setPersons,persons,setMessage,setErrorMessage)
       
     }else if (CheckNumber(persons,newNumber)){
       alert("this number is already in the phonebook")
       
     }else{
-      HandleNewPerson(newName,newNumber,setNewName,setPersons,persons)
-      
+      HandleNewPerson(newName,newNumber,setNewName,setPersons,persons,setMessage) 
     }
-  
-  
   }
   
-export const HandleNewPerson =(newName,newNumber,setNewName,setPersons,persons)=>{
+export const HandleNewPerson =(newName,newNumber,setNewName,setPersons,persons,setMessage)=>{
     const personObject ={
       name: newName,
       number: newNumber,
@@ -30,38 +27,67 @@ export const HandleNewPerson =(newName,newNumber,setNewName,setPersons,persons)=
       .then(responseNotes => {
         setPersons(persons.concat(responseNotes))
        setNewName('')
-        console.log(responseNotes,"this")
       }) 
-      setNewName('')
+      setMessage(
+        `${newName} was added to the phonebook`
+      )
+      setTimeout(() => {
+        setMessage(null)
+      }, 5000)
+      
       
   
   }
-export const HandleNumberUpdate=(id,name,number,setPersons,persons)=>{
+export const HandleNumberUpdate=(id,name,number,setPersons,persons,setMessage,setErrorMessage)=>{
     
     if (window.confirm("update "+name+" number?")) {
     personService
     .update(id,name,number)
     .then(responseData =>{
       setPersons(persons.map(line => line.id !==id ?line:responseData  ))
+      setMessage(
+        `${name}'s number was updated to ${number}`
+      )
+      setTimeout(() => {
+        setMessage(null)
+      }, 5000)
     })
     .catch(error => {
-      alert("This person is deleted\n"+error.name)
-      
+        setErrorMessage("This person is already deleted!"
+      )
+        setTimeout(()=> {
+            setErrorMessage(null)
+        },5000
+        )
+        setPersons(persons.filter(person =>person.id != id))
+        
     })
     }
   
   }
-export const HandleDelete=(e,name,{persons,setPersons})=>{
+export const HandleDelete=(e,name,{persons,setPersons,setErrorMessage,setMessage})=>{
     
     if (window.confirm("Delete "+name+"?")){
       personService
       .remove(e)
       .then(() =>{
         setPersons(persons.filter(person =>person.id != e))
+        setMessage(
+            `deletion success`
+          )
+          setTimeout(() => {
+            setMessage(null)
+          }, 5000)
       })
       .catch(error => {
-        alert("This person is already deleted\n"+error.name)
+        setErrorMessage("this person is already deleted")
+        setTimeout(()=>{
+            setErrorMessage(null)
+        },5000
+        )
+    
         setPersons(persons.filter(person =>person.id != e))
+       
       })
        
     }  

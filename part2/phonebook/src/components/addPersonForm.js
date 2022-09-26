@@ -15,14 +15,14 @@ export const Button =(props)=>(
     </form>
   )
 
-export const PersonsShowTwo=({persons,search,setPersons,HandleDelete})=>{
+export const PersonsShowTwo=({persons,search,setPersons,HandleDelete,setMessage,setErrorMessage})=>{
     const personToShow =  persons.filter(person => person.name.includes(search))
   
   return (
     <ul>
         {personToShow.map(note => <li key ={note.name}>
           {note.name} {note.number}  {" "}
-          <Button text="delete" value={note.id} onClick={e=>HandleDelete(e.target.value,note.name,{setPersons,persons})}/>
+          <Button text="delete" value={note.id} onClick={e=>HandleDelete(e.target.value,note.name,{setPersons,persons,setErrorMessage,setMessage})}/>
           </li>)}
       </ul>
   )

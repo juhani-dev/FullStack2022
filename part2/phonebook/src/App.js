@@ -3,11 +3,11 @@ import { useState, useEffect } from 'react'
 
 
 import personService from './services/persons'
-import {Button} from './components/addPersonForm'
+
 import {AddForm} from './components/addPersonForm'
 import { PersonsShowTwo } from './components/addPersonForm'
-import {CheckName, CheckNumber, FindId} from'./services/searchPersons'
-import {AddPersonNew,HandleDelete,HandleNewPerson,HandleNumberUpdate}from './components/manipulatePhonebook'
+
+import {AddPersonNew,HandleDelete}from './components/manipulatePhonebook'
 
 
 
@@ -26,6 +26,8 @@ const App = () => {
   const [newName, setNewName] = useState('')
   const [newNumber, setNewNumber] = useState('')
   const [search,setNewSearch]= useState('')
+  const [messageOk,setMessage] = useState(null)
+  const [messageError,setErrorMessage] = useState(null)
 
   useEffect(() => {
     console.log('effect')
@@ -52,10 +54,23 @@ const App = () => {
     console.log(event.target.value)
     setNewNumber(event.target.value)
   }
-
+  const Notification = ({ message ,style}) => {
+    if (message === null) {
+      return null
+    }
+  
+    return (
+      <div className={style}>
+        {message}
+      </div>
+    )
+  }
+ 
   return (
     <div>
       <h2>Phonebook</h2>
+      <Notification message={messageOk} style="success" />
+      <Notification message={messageError} style="error" />
       <FilterList
           filter={search} 
           onChange={handleSearchChange}/>
@@ -66,11 +81,13 @@ const App = () => {
      persons={persons} 
      search={search} 
      setPersons={setPersons}  
-     HandleDelete={HandleDelete}/>
+     HandleDelete={HandleDelete}
+     setErrorMessage={setErrorMessage}
+     setMessage={setMessage}/>
 
     <h2>Add new number</h2>
     <AddForm
-    onSubmit={(event)=>AddPersonNew(event,persons,newName, newNumber,setPersons,setNewName)}
+    onSubmit={(event)=>AddPersonNew(event,persons,newName, newNumber,setPersons,setNewName,setMessage,setErrorMessage)}
     newNumber={newNumber}
     onNumberChange={handleNumberChange}
     newName={newName}
