@@ -42,16 +42,20 @@ export const HandleNewPerson =(newName,newNumber,setNewName,setPersons,persons,s
   
   }
 export const HandleNumberUpdate=(id,name,number,setPersons,persons,setMessage,setErrorMessage)=>{
-    
+  const person = persons.find(n => n.id === id)
+    const changedPerson = { ...person, number: number}
+
+  
     if (window.confirm("update "+name+" number?")) {
-      
+      console.log(number,"this")
     personService
     .update(id,name,number)
-    .then(responseData =>{
-      setPersons(persons.map(line => line.id !==id ?line:responseData  ))
+    .then(() =>{     
+      setPersons(persons.map(line => line.id !== id ? line:changedPerson))
       setMessage(
         `${name}'s number was updated to ${number}`
       )
+      
       setTimeout(() => {
         setMessage(null)
       }, 5000)
@@ -62,14 +66,11 @@ export const HandleNumberUpdate=(id,name,number,setPersons,persons,setMessage,se
           setErrorMessage(null)
       },5000
       )
-  
-     
     })
-        
-        
-        
-    
+    console.log(persons)
+   
     }
+   
   
   }
 export const HandleDelete=(e,name,{persons,setPersons,setErrorMessage,setMessage})=>{
