@@ -21,7 +21,6 @@
     "server": "json-server -p3001 --watch db.json"
     
   },
-  "proxy": "http://localhost:3001",
   
   "eslintConfig": {
     "extends": [
@@ -40,6 +39,6 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-  }
-  
+  },
+  "proxy": "http://localhost:3001"
 }
