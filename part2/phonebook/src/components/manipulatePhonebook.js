@@ -14,11 +14,11 @@ export const AddPersonNew=(event,persons,newName,newNumber,setPersons,setNewName
       alert("this number is already in the phonebook")
       
     }else{
-      HandleNewPerson(newName,newNumber,setNewName,setPersons,persons,setMessage) 
+      HandleNewPerson(newName,newNumber,setNewName,setPersons,persons,setMessage,setErrorMessage) 
     }
   }
   
-export const HandleNewPerson =(newName,newNumber,setNewName,setPersons,persons,setMessage)=>{
+export const HandleNewPerson =(newName,newNumber,setNewName,setPersons,persons,setMessage,setErrorMessage)=>{
     const personObject ={
       name: newName,
       number: newNumber,
@@ -29,15 +29,24 @@ export const HandleNewPerson =(newName,newNumber,setNewName,setPersons,persons,s
       .then(responseNotes => {
         setPersons(persons.concat(responseNotes))
        setNewName('')
-      }) 
+      
+      
       setMessage(
-        
         `${newName} was added to the phonebook`
       )
+      
       setTimeout(() => {
         setMessage(null)
       }, 5000)
-      
+    })  
+    .catch(error => {
+      console.log(error.response.data.error)
+      setErrorMessage(error.response.data.error)
+      setTimeout(()=>{
+          setErrorMessage(null)
+      },5000
+      )
+    })
       
   
   }
@@ -47,9 +56,9 @@ export const HandleNumberUpdate=(id,name,number,setPersons,persons,setMessage,se
 
   
     if (window.confirm("update "+name+" number?")) {
-      console.log(number,"this")
+      
     personService
-    .update(id,name,number)
+    .update(id,number)
     .then(() =>{     
       setPersons(persons.map(line => line.id !== id ? line:changedPerson))
       setMessage(
@@ -61,13 +70,13 @@ export const HandleNumberUpdate=(id,name,number,setPersons,persons,setMessage,se
       }, 5000)
     })
     .catch(error => {
-      setErrorMessage("this person is already deleted")
+      setErrorMessage(error.response.data.error)
       setTimeout(()=>{
           setErrorMessage(null)
       },5000
       )
     })
-    console.log(persons)
+    
    
     }
    
@@ -87,17 +96,9 @@ export const HandleDelete=(e,name,{persons,setPersons,setErrorMessage,setMessage
           setTimeout(() => {
             setMessage(null)
           }, 5000)
+          setPersons(persons.filter(person =>person.id != e))
       })
-      .catch(error => {
-        setErrorMessage("this person is already deleted")
-        setTimeout(()=>{
-            setErrorMessage(null)
-        },5000
-        )
-    
-        setPersons(persons.filter(person =>person.id != e))
-       
-      })
+   
        
     }  
     }
