@@ -22,5 +22,5 @@ const baseUrl = "/api/persons"
     })
     return request.then(response=>response.data)
   }
-    export default {getAll,create,remove,update}
+export default {getAll,create,remove,update}
   
