@@ -1,4 +1,11 @@
-GET   http://localhost:3003/api/users/
+POST http://localhost:3003/api/blogs
 Content-type: application/json
 
+{
+    "title": "Stringthisdwdw",
+    "author": "Stringddddddaaagfgfgad",
+    "url": "String"
+    
+    
+}
 

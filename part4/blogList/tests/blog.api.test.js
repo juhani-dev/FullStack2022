@@ -3,6 +3,7 @@ const supertest = require('supertest')
 const app = require('../app')
 const api = supertest(app)
 const Blog = require('../models/blog')
+
 const testBlogsList =[
     {
         title: "simpsons",
@@ -15,6 +16,7 @@ const testBlogsList =[
         author: "solo",
         url: "space",
         likes:6
+
       },
 ]
 beforeEach(async () => {
