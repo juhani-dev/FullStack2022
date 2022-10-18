@@ -1,11 +1,47 @@
-POST http://localhost:3003/api/blogs
+POST http://localhost:3003/api/users
 Content-type: application/json
 
+
 {
-    "title": "Stringthisdwdw",
-    "author": "Stringddddddaaagfgfgad",
-    "url": "String"
-    
-    
+    "username": "theuser22",
+    "name": "theuser22",
+    "password": "theuser22"
+
 }
 
+###
+
+POST http://localhost:3003/api/login
+Content-type: application/json
+
+
+{
+    "username": "theuser22",
+    "password": "theuser22"
+
+}
+
+###
+
+POST http://localhost:3003/api/blogs
+Content-type: application/json
+Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InRoZXVzZXIiLCJpZCI6IjYzNGVlNzkxNzZhYjc0ZDhjZTZmNDExYyIsImlhdCI6MTY2NjExNTQ4MH0.8ydXgVMpDcFxbr2jYVeXSbGrr0Of4OsUPfukBqieMyg
+
+{
+    "title": "username",
+    "author": "username",
+    "likes": 100,
+    "url": "www"
+
+}
+
+###
+
+DELETE http://localhost:3003/api/blogs/634ee7bb76ab74d8ce6f4120
+Content-type: application/json
+Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InRoZXVzZXIyMiIsImlkIjoiNjM0ZWVhMzQ3NmFiNzRkOGNlNmY0MTI3IiwiaWF0IjoxNjY2MTE2MTY1fQ.bCl8zZGwrUlzB9PU2u-bF9Cfju1jI9Gn9U1gpGRJs24
+
+###
+
+GET http://localhost:3003/api/blogs
+Content-type: application/json
