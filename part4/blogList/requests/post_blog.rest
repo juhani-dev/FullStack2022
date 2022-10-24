@@ -3,9 +3,9 @@ Content-type: application/json
 
 
 {
-    "username": "theuser22",
-    "name": "theuser22",
-    "password": "theuser22"
+    "username": "hermion",
+    "name": "hermion",
+    "password": "hermion"
 
 }
 
@@ -16,8 +16,8 @@ Content-type: application/json
 
 
 {
-    "username": "theuser22",
-    "password": "theuser22"
+    "username": "hermion",
+    "password": "hermion"
 
 }
 
@@ -25,23 +25,27 @@ Content-type: application/json
 
 POST http://localhost:3003/api/blogs
 Content-type: application/json
-Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InRoZXVzZXIiLCJpZCI6IjYzNGVlNzkxNzZhYjc0ZDhjZTZmNDExYyIsImlhdCI6MTY2NjExNTQ4MH0.8ydXgVMpDcFxbr2jYVeXSbGrr0Of4OsUPfukBqieMyg
-
-{
-    "title": "username",
-    "author": "username",
-    "likes": 100,
-    "url": "www"
+Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Imhlcm1pb24iLCJpZCI6IjYzNTY0OTJiNDNlZmRkYjUwOTIzNzE4ZSIsImlhdCI6MTY2NjYxMTE2Mn0.k8g5wgKv9BUMVxbINDR6jtoY_ERaLqRBxbdVJuQv6LU
+    
+ {   
+    "title": "stoot",
+    "author": "marsipaan243",
+    "url": "www",
+    "likes": 999
 
 }
 
 ###
 
-DELETE http://localhost:3003/api/blogs/634ee7bb76ab74d8ce6f4120
+DELETE http://localhost:3003/api/blogs/6356779c43efddb509237199
 Content-type: application/json
-Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InRoZXVzZXIyMiIsImlkIjoiNjM0ZWVhMzQ3NmFiNzRkOGNlNmY0MTI3IiwiaWF0IjoxNjY2MTE2MTY1fQ.bCl8zZGwrUlzB9PU2u-bF9Cfju1jI9Gn9U1gpGRJs24
+Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Imhlcm1pb24iLCJpZCI6IjYzNTY0OTJiNDNlZmRkYjUwOTIzNzE4ZSIsImlhdCI6MTY2NjYxMTE2Mn0.k8g5wgKv9BUMVxbINDR6jtoY_ERaLqRBxbdVJuQv6LU
 
 ###
 
 GET http://localhost:3003/api/blogs
+Content-type: application/json
+
+###
+GET http://localhost:3003/api/users
 Content-type: application/json

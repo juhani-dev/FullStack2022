@@ -18,3 +18,14 @@
   margin-bottom: 10px;
 
 }
+
+.blog {
+  
+  color: black;
+  border-style: solid;
+  border-radius: 2px;
+  font-size: 17px;
+  border-width: 2px;
+  margin-bottom: 3px;
+  
+}

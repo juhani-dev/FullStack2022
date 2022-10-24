@@ -37,7 +37,7 @@ beforeEach(async () => {
     .send(testUser)
 
      auth = result.body.token
-    console.log(result,"LOOK HERE RESULT")
+    
 
     await api
         .post('/api/blogs')

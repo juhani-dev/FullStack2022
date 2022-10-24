@@ -22,13 +22,15 @@ blogsRouter.get('/',  async (request,response) => {
       likes: body.likes,
       user:getFirstUser._id
     })
-    await blog.save()
+    
       if(!blog.url || !blog.title){
         response.status(400).end()
 
       }else if (!blog.likes){
+        await blog.save()
        let savedBlogFinal= await Blog.findByIdAndUpdate(blog._id,{likes: 0},{new:true})
        getFirstUser.blogs = getFirstUser.blogs.concat(savedBlogFinal._id.toString())
+       await getFirstUser.save()
         response.status(201).json(savedBlogFinal)
       }
       

@@ -4,8 +4,9 @@ import blogService from './services/blogs'
 import loginService from './services/login'
 import createService from './services/createblog'
 import Notification from './components/Notification'
-import BlogCreatedNotification from'./components/Notification'
+//import BlogCreatedNotification from'./components/Notification'
 import './index.css'
+import BlogFormNew from './components/BlogForm'
 
 const App = () => {
   const [blogs, setBlogs] = useState([])
@@ -13,11 +14,14 @@ const App = () => {
   const [password, setPassword] = useState('')
   const [user, setUser] = useState(null)
   const [usernameText, setUsernameText] = useState('')
-  const [title, setTitle] = useState('')
-  const [author, setAuthor] = useState('')
-  const [url, setUrl ]= useState('')
+  //const [title, setTitle] = useState('')
+  //const [author, setAuthor] = useState('')
+  //const [url, setUrl ]= useState('')
   const [errorMessage, setErrorMessage] = useState(null)
-  const [successMessage, setSucceessMessage] = useState(null)
+  //const [successMessage, setSucceessMessage] = useState(null)
+  
+  
+  const [loginVisible, setLoginVisible] = useState(false)
   
 
   useEffect(() => {
@@ -27,22 +31,19 @@ const App = () => {
   }, [])
   const blogsToShow  = blogs.filter(line => line.user.username === usernameText)
   
-  const HandleNew = async (event) => {
+  /*const HandleNew = async (event) => {
     event.preventDefault()
 
     const newBlog = {
       title: title,
       author: author,
       url: url
-    }
-    const blogToDatabase = await
-    createService
-    .create(newBlog)
-   
-  
+    }*/
     
-    setBlogs(blogs.concat(blogToDatabase))
-    setSucceessMessage(`new blog ${title} by ${author} created`)
+    
+    
+    
+    /*setSucceessMessage(`new blog ${title} by ${author} created`)
     setTimeout(() => {
       setSucceessMessage(null)
       
@@ -50,12 +51,16 @@ const App = () => {
     setTitle('')
       setAuthor('')
       setUrl('')
-    
-  }
+      setLoginVisible(false)
+      
+      console.log(blogs)*/
+      
+  
   const HandleLogOut = async (event) => {
     event.preventDefault()
     window.localStorage.removeItem('loggedUser')
     setUser(null)
+    setLoginVisible(false)
   }
   const handleLogin = async (event) => {
     event.preventDefault()
@@ -86,6 +91,38 @@ const App = () => {
     }
     console.log('logging in with', username, password)
   }
+ 
+  /*const BlogForm = ({onSubmit}) =>{
+    return(
+      <form onSubmit={onSubmit}>
+    <div>
+      title: <input type="text" value={title} name="title"
+      onChange={({ target }) => setTitle(target.value)}/><br/>
+
+      author: <input type="text" value={author} name="author"
+      onChange={({ target }) => setAuthor(target.value)}/><br/>
+
+      url: <input type="text" value={url} name="url"
+      onChange={({ target }) => setUrl(target.value)}/><br/>
+      < button type="submit">create</button>
+    </div>
+    
+    </form>
+
+    )
+  }*/
+  const hideWhenVisible = { display: loginVisible ? 'none' : '' }
+  const showWhenVisible = { display: loginVisible ? '' : 'none' }
+
+      
+  const handleNew = async (newBlogObject) => {
+    
+      const data = await createService
+      .create(newBlogObject)
+      setBlogs(blogs.concat(data))
+    
+    }
+  
   if(user === null){
   
   return (
@@ -93,7 +130,7 @@ const App = () => {
     <>
     <h2> Log in</h2>
 
-    < Notification message={errorMessage}/>
+    < Notification message={errorMessage} color='error' />
     <div>
     <form onSubmit={handleLogin}>
     <div>
@@ -119,28 +156,26 @@ const App = () => {
   )
 }else{
   
+
   return(
   <>
   <h2>Blogs</h2>
-  < BlogCreatedNotification message={successMessage}/>
+  
   <div>
+   
     {usernameText}  is logged in 
     < button onClick={HandleLogOut}>logout</button>
 
-    <form onSubmit={HandleNew}>
-    <div>
-      title: <input type="text" value={title} name="title"
-      onChange={({ target }) => setTitle(target.value)}/><br/>
-
-      author: <input type="text" value={author} name="author"
-      onChange={({ target }) => setAuthor(target.value)}/><br/>
-
-      url: <input type="text" value={url} name="url"
-      onChange={({ target }) => setUrl(target.value)}/><br/>
-      < button type="submit">create</button>
+    <div style={hideWhenVisible}>
+        <button onClick={() => setLoginVisible(true)}>newblog</button>
+      
     </div>
-    </form>
-
+    <div style={showWhenVisible}> 
+    <BlogFormNew newBlog={handleNew}/>
+    
+   
+        <button onClick={() => setLoginVisible(false)}>cancel</button>
+      </div>
      <div>
       
       {blogsToShow.map(blog =>
@@ -149,6 +184,9 @@ const App = () => {
         
       </div>
   </div>
+
+  
+   
   </>
   )
 }
