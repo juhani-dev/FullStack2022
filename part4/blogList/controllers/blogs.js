@@ -45,19 +45,20 @@ blogsRouter.get('/',  async (request,response) => {
 blogsRouter.delete('/:id',middleware.tokenExtractor,middleware.userExtractor, async (request, response) => {  
   
   const BlogUser = await Blog.findById(request.params.id)
+  console.log(request.params.id)
   if (!request.user.id || !request.token) {
     return response.status(401).json({ error: 'token missing or invalid' })
   }
   if ( request.user.id === BlogUser.user.toString()){
-
+   await Blog.findByIdAndRemove(request.params.id)
   response.status(204).end()}
   else{return response.status(401).json({ error: 'this user does not have authority' })}
 })
 
 blogsRouter.put('/:id', async (request, response) => {
   const newLikes =await request.body.likes
-  await Blog.findByIdAndUpdate(request.params.id,{likes: newLikes})
-  response.status(201).end()
+  const datalikes =await Blog.findByIdAndUpdate(request.params.id,{likes: newLikes},{new:true})
+  response.status(201).json(datalikes)
 })
 
 

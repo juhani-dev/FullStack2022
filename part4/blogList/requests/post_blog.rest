@@ -25,7 +25,7 @@ Content-type: application/json
 
 POST http://localhost:3003/api/blogs
 Content-type: application/json
-Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Imhlcm1pb24iLCJpZCI6IjYzNTY0OTJiNDNlZmRkYjUwOTIzNzE4ZSIsImlhdCI6MTY2NjYxMTE2Mn0.k8g5wgKv9BUMVxbINDR6jtoY_ERaLqRBxbdVJuQv6LU
+Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Imhlcm1pb24iLCJpZCI6IjYzNTY0OTJiNDNlZmRkYjUwOTIzNzE4ZSIsImlhdCI6MTY2NjY4NzkzNH0.gwiKdVG6FV0FfXpW38SuN9ogTOrQj5Jdxm4frlLqCNg
     
  {   
     "title": "stoot",
@@ -37,7 +37,7 @@ Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Imhlc
 
 ###
 
-DELETE http://localhost:3003/api/blogs/6356779c43efddb509237199
+DELETE http://localhost:3003/api/blogs/6357a3de8963d896d55f2bc1
 Content-type: application/json
 Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Imhlcm1pb24iLCJpZCI6IjYzNTY0OTJiNDNlZmRkYjUwOTIzNzE4ZSIsImlhdCI6MTY2NjYxMTE2Mn0.k8g5wgKv9BUMVxbINDR6jtoY_ERaLqRBxbdVJuQv6LU
 
