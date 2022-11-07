@@ -1,12 +1,12 @@
-import { useState } from "react"
+//import { useState } from "react"
 import BlogInfoForm from '../components/BlogInfoForm'
 const Blog = ({ blog,handleLi,handleRe,user }) => {
 
   //const [likes,setLikes] =useState('')
-  const [show,setShow] =useState(false)
+  /* const [show,setShow] =useState(false)
   const handleClick = () => {
     setShow((isVisible) => !isVisible)
-  }
+  }*/
 
   const handleLike = async (likes,id) => {
     console.log(window.localStorage.loggedUser[0])
@@ -19,8 +19,8 @@ const Blog = ({ blog,handleLi,handleRe,user }) => {
   }
 
   return(
-    <div>
-      <BlogInfoForm handleClick={handleClick} handleLike={handleLike} handleRemove={handleRemove} blog={blog} show={show} user={user}/>
+    <div className='showContent'>
+      <BlogInfoForm  handleLike={handleLike} handleRemove={handleRemove} blog={blog}  user={user}/>
     </div>
   )
 

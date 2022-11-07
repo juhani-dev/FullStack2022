@@ -27,7 +27,14 @@ const App = () => {
 
     )
   }, [])
-
+  useEffect(() => {
+    const loggedUserJSON = window.localStorage.getItem('loggedUser')
+    if (loggedUserJSON) {
+      const user = JSON.parse(loggedUserJSON)
+      setUser(user)
+      createService.setToken(user.token)
+    }
+  }, [])
   const blogsToShow  = blogs.sort(function(a, b){return b.likes - a.likes})
 
   const HandleLogOut = async (event) => {
@@ -49,6 +56,7 @@ const App = () => {
       )
 
       setUser(user)
+      console.log(user,"thishere")
       createService.setToken(user.token)
       setUsername('')
       setPassword('')
