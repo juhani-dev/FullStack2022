@@ -3,7 +3,7 @@ import  Notification  from './Notification'
 import { addVote,addVotes } from '../reducers/anecdoteReducer'
 import { newMessage,zeroMessage} from '../reducers/messageReducer'
 import anecdoteService from '../services/Anecdotes'
-import { setNotification } from '../reducers/messageReducer'
+import { setNotification ,timer} from '../reducers/messageReducer'
 const AnecdoteList = () => {
     const filterLine = useSelector(state => state.filter)
     const anecdotes = useSelector(state => {
@@ -20,7 +20,8 @@ const AnecdoteList = () => {
       dispatch(addVotes(anecdote))
       //anecdoteService.addVote(anecdote)
        // dispatch(addVote(anecdote.id))
-       dispatch(setNotification(`you voted '${anecdote.content}'`, 10))
+       dispatch(timer(`you voted '${anecdote.content}'`, 5))
+       //dispatch(setNotification(`you voted '${anecdote.content}'`, 5))
        /* dispatch(newMessage(anecdote.content))
         setTimeout(() => {
             dispatch(zeroMessage(null))

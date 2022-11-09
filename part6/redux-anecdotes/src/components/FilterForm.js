@@ -1,11 +1,15 @@
 import { useDispatch,useSelector } from "react-redux"
 import {filterList  } from "../reducers/filterReducer"
-const FilterForm = () => {
+import  {connect} from "react-redux"
+
+
+const FilterForm = (props) => {
 const dispatch = useDispatch()
-const filters = useSelector(state => state.filters)
+
 const handleChange = (event) => {
 
-    dispatch(filterList(event.target.value))
+    props.filterList(event.target.value)
+    //dispatch(filterList(event.target.value))
 }
     return(
         <div>
@@ -17,4 +21,11 @@ const handleChange = (event) => {
         </div>
     )
 }
-export default FilterForm
+const mapDispatchToProps = {
+    filterList,
+  }
+
+  const ConnectedFilterForm = connect(null,mapDispatchToProps)(FilterForm)
+  export default ConnectedFilterForm
+
+//export default FilterForm

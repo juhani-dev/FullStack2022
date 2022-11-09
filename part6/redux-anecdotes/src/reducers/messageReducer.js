@@ -12,8 +12,8 @@ const messageReducer = (state = initialState, action) => {
 }
 export default messageReducer*/
 
-
 import { createSlice ,current} from '@reduxjs/toolkit'
+
 const initialState = null
 
 const messageSlice = createSlice ({
@@ -22,7 +22,7 @@ const messageSlice = createSlice ({
     reducers:{
         newMessage(state,action) {
             console.log(state,'left rigth',action.payload)
-            const line = 'you voted for '+action.payload
+            const line = action.payload
             state = line
             return line
         },
@@ -30,20 +30,28 @@ const messageSlice = createSlice ({
             state = null
             return state
         }
+
     }
 
 })
 export const {newMessage,zeroMessage} =messageSlice.actions
 export default messageSlice.reducer
-
+export const timer =(message,time)=>{
+    let wait = 'wait'
+  setTimeout(() => {
+    wait = 'done'
+  },time * 1000)
+  console.log(wait,'wait')
+}
 export const setNotification = (message,time) => {
-
-    console.log(message,time)
-    return async dispatch => {
-        dispatch(newMessage(message))
-setTimeout(() => {
-    dispatch(zeroMessage(null))
-
+   
+  
+    const zero = zeroMessage(null)
+    const send = newMessage(message)
+    return async dispatch => { 
+        dispatch(send)
+  setTimeout(() => {
+    dispatch(zero)
   }, time *1000 )
     }
 }
