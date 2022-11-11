@@ -1,0 +1,66 @@
+{
+  "notes": [
+    {
+      "content": "custom-hooks are great",
+      "id": 1
+    },
+    {
+      "content": "the best featrure ever <3",
+      "id": 2
+    },
+    {
+      "content": "this here",
+      "id": 3
+    },
+    {
+      "content": "fir the win",
+      "id": 4
+    },
+    {
+      "content": "chicago",
+      "id": 5
+    }
+  ],
+  "persons": [
+    {
+      "name": "mluukkai",
+      "number": "040-5483923",
+      "id": 1
+    },
+    {
+      "name": "kaltsoon",
+      "number": "045-2323456",
+      "id": 2
+    },
+    {
+      "name": "juhani",
+      "number": "050-5555",
+      "id": 3
+    },
+    {
+      "name": "jamie",
+      "number": "050-5555666",
+      "id": 4
+    },
+    {
+      "name": "sarah",
+      "number": "050-55556",
+      "id": 5
+    },
+    {
+      "name": "sarah lee",
+      "number": "050-55556",
+      "id": 6
+    },
+    {
+      "name": "sarah lee cooie",
+      "number": "050-55556",
+      "id": 7
+    },
+    {
+      "name": "late",
+      "number": "050-55556",
+      "id": 8
+    }
+  ]
+}
