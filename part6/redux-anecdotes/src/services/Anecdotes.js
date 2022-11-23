@@ -11,11 +11,11 @@ const addAnecdote = async (content) => {
     return response.data
 }
 const addVote = async (anecdote) => {
-    console.log(anecdote,"jesus")
+    
     let url = baseUrl+'/'+anecdote.id 
     let vote = anecdote.votes+1
     const response = await axios.put(url,{content:anecdote.content, votes:vote },{new:true})
-    console.log(response.data,"what")
+   
     return response.data
 }
 export default { getAll,addAnecdote,addVote }

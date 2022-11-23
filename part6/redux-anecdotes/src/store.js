@@ -1,9 +1,7 @@
 import { configureStore } from '@reduxjs/toolkit'
-import { useDispatch } from 'react-redux'
-import {  combineReducers } from 'redux'
-import anecdoteService from './services/Anecdotes'
+
 import messageSlice from './reducers/messageReducer'
-import anecdoteSlice, { addObject } from './reducers/anecdoteReducer'
+import anecdoteSlice from './reducers/anecdoteReducer'
 import filterSlice from './reducers/filterReducer'
 
 const store = configureStore ({
@@ -17,13 +15,6 @@ const store = configureStore ({
 
 console.log(store.getState())
 
-
-anecdoteService.getAll().then(line =>
-  line.forEach(note => {
-    store.dispatch(addObject(note))
-    
-  })
-)
 
 
 

@@ -1,6 +1,4 @@
-import { useSelector } from 'react-redux'
-import { useDispatch } from 'react-redux'
-import messageReducer from '../reducers/messageReducer'
+
 import { connect } from 'react-redux'
 
 const Notification = (props) => {
@@ -28,4 +26,3 @@ const mapStateToProps = (state) => {
 }
 const ConnectedNotification = connect(mapStateToProps)(Notification)
 export default ConnectedNotification
-//export default Notification

@@ -1,10 +1,17 @@
-import { useSelector, useDispatch } from 'react-redux'
-import {createAnecdote,addVote} from './reducers/anecdoteReducer.js'
+import { useDispatch } from 'react-redux'
 import AnecdoteForm from './components/AnecdoteForm'
 import AnecdoteList from './components/AnecdoteList.js'
 import FilterForm  from './components/FilterForm.js'
+import { useEffect } from 'react'
+import { initAnecdotes } from './reducers/anecdoteReducer'
+
 const App = () => {
- 
+  const dispatch = useDispatch()
+
+  useEffect(() => {
+    dispatch(initAnecdotes()) 
+  }, [dispatch]) 
+  
   return (
     
     <div>
