@@ -32,22 +32,22 @@ describe('blogInfoForms', () => {
   })
   //const { container } = render(<BlogInfoForm blog={blog} />)
 
-  test('shows just title', () => {
+  test('shows just title and author', () => {
     const div = container.querySelector('.blogInfo')
     expect(div).toHaveTextContent(
       'titlehere'
     )
-    expect(div).not.toHaveTextContent(
+    expect(div).toHaveTextContent(
       'authorhere'
     )
   })
-  test(' view button press works', async () => {
+  test(' view button press works and shows correct info', async () => {
     const user = userEvent.setup()
     const button = screen.getByText('view blog info')
     await user.click(button)
 
     const div = container.querySelector('.blog')
-    expect(div).toHaveTextContent('authorhere' && 'urlhere')
+    expect(div).toHaveTextContent('like' && 'urlhere')
 
   })
   test(' view button press works if pressed twice', async () => {

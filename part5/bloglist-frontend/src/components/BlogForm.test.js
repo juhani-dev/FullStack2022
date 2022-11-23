@@ -4,7 +4,7 @@ import { render,screen } from '@testing-library/react'
 import BlogFormNew from './BlogForm'
 import userEvent from '@testing-library/user-event'
 
-test('creating a new blog works' ,async () => {
+test('creating a new blog form works' ,async () => {
 
   const createBlog = jest.fn()
   const user = userEvent.setup()

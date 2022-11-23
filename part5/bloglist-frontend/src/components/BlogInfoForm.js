@@ -22,8 +22,6 @@ const BlogInfoForm = ({ blog,handleLike,handleRemove,user }) => {
   const blogData = (
     <div className='blog'>
       <li>
-        {blog.author}
-        <br></br>
         {blog.likes} <button onClick={() => handleLike(blog.likes,blog.id)} >like</button>
         <br></br>
         {blog.url}
@@ -36,12 +34,11 @@ const BlogInfoForm = ({ blog,handleLike,handleRemove,user }) => {
 
   return(
     <div className='blogInfo'>
-      <ul>
-        {blog.title}  <button onClick={handleClick}>view blog info</button>
-        {show && blogData}
-        <br></br>
 
-      </ul>
+      {blog.title} {blog.author} <button onClick={handleClick}>toggle blog info</button>
+      {show && blogData}
+      <br></br>
+
     </div>
   )
 }

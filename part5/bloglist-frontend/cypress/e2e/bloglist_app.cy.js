@@ -8,8 +8,7 @@ describe('Blog app', function() {
       password: 'salainen'
     }
     cy.request('POST', 'http://localhost:3003/api/users/', user)
-    
-    
+
   })
 
   it('Login form is shown', function() {
@@ -19,7 +18,7 @@ describe('Blog app', function() {
   })
   describe('Login',function() {
     it('succeeds with correct credentials', function() {
-      
+
       cy.get('input:first').type('ensi')
       cy.get('input:last').type('salainen')
       cy.contains('login').click()
@@ -33,7 +32,7 @@ describe('Blog app', function() {
 
     })
   })
-    describe('add blog',function() {
+  describe('add blog',function() {
     it('succeeds creating blog', function() {
       cy.login('ensi','salainen')
       cy.contains('ensi is logged in')
@@ -48,7 +47,7 @@ describe('Blog app', function() {
     })
     it('succeeds liking a blog', function() {
       cy.login('ensi','salainen')
-      cy.createBlog({author:'blogger',title:'theblog',url:'www.www' })
+      cy.createBlog({ author:'blogger',title:'theblog',url:'www.www' })
       cy.contains('view blog info').click()
       cy.contains('0')
       cy.contains('like').click()
@@ -58,7 +57,7 @@ describe('Blog app', function() {
     })
     it('succeeds removing a blog', function() {
       cy.login('ensi','salainen')
-      cy.createBlog({author:'blogger',title:'theblog',url:'www.www',likes:2 })
+      cy.createBlog({ author:'blogger',title:'theblog',url:'www.www',likes:2 })
       cy.contains('view blog info').click()
       cy.contains('blogger' && 'theblog' && 'www.www')
       cy.contains('remove').click()
@@ -67,7 +66,7 @@ describe('Blog app', function() {
     })
     it('unauhtorized user cant remove a blog', function() {
       cy.login('ensi','salainen')
-      cy.createBlog({author:'blogger',title:'theblog',url:'www.www',likes:2 })
+      cy.createBlog({ author:'blogger',title:'theblog',url:'www.www',likes:2 })
       const user = {
         name: 'jevgeni',
         username: 'putler',
@@ -85,10 +84,10 @@ describe('Blog app', function() {
     it('blogs with most likes is at the top', function() {
 
       cy.login('ensi','salainen')
-      cy.postBlog({author:'elpaso',title:'hoover',url:'www.www2',likes:50 })
-      cy.postBlog({author:'mexico',title:'york',url:'www.www2',likes:10 })
-      cy.postBlog({author:'texas',title:'austin',url:'www.www2',likes:100 })
-      cy.createBlog({author:'blogger',title:'theblog',url:'www.www' })
+      cy.postBlog({ author:'elpaso',title:'hoover',url:'www.www2',likes:50 })
+      cy.postBlog({ author:'mexico',title:'york',url:'www.www2',likes:10 })
+      cy.postBlog({ author:'texas',title:'austin',url:'www.www2',likes:100 })
+      cy.createBlog({ author:'blogger',title:'theblog',url:'www.www' })
       cy.wait(2000)
       cy.get('.showContent').each(($ele) => {
         cy.wrap($ele).find('button').contains('view blog info').click()

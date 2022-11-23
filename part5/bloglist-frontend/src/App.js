@@ -4,7 +4,7 @@ import blogService from './services/blogs'
 import loginService from './services/login'
 import createService from './services/createblog'
 import Notification from './components/Notification'
-//import BlogCreatedNotification from'./components/Notification'
+
 import './index.css'
 import BlogFormNew from './components/BlogForm'
 import updateService from './services/updatelikes'
@@ -14,11 +14,10 @@ const App = () => {
   const [password, setPassword] = useState('')
   const [user, setUser] = useState(null)
   const [usernameText, setUsernameText] = useState('')
-  //const [title, setTitle] = useState('')
-  //const [author, setAuthor] = useState('')
-  //const [url, setUrl ]= useState('')
+
   const [errorMessage, setErrorMessage] = useState(null)
-  //const [successMessage, setSucceessMessage] = useState(null)
+  const [welcomeMessage, setWelcomeMessage] = useState(null)
+
   const [loginVisible, setLoginVisible] = useState(false)
 
   useEffect(() => {
@@ -56,22 +55,22 @@ const App = () => {
       )
 
       setUser(user)
-      console.log(user,"thishere")
       createService.setToken(user.token)
       setUsername('')
       setPassword('')
-      console.log(window.localStorage)
       setUsernameText(username)
+      setWelcomeMessage('welcome in '+username)
+      setTimeout(() => {
+        setWelcomeMessage(null)
+      }, 4000)
     } catch (exception) {
       setErrorMessage("Wrong password or username")
-      console.log('Wrong credentials')
       setTimeout(() => {
         setErrorMessage(null)
         console.log('nothing')
       }, 5000)
 
     }
-    console.log('logging in with', username, password)
   }
 
 
@@ -174,6 +173,7 @@ const App = () => {
     return(
       <>
         <h2>Blogs</h2>
+        < Notification message={welcomeMessage} color='success' />
         <div>
           {usernameText}  is logged in
           < button onClick={HandleLogOut}>logout</button>
